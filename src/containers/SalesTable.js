@@ -12,30 +12,94 @@ class SalesTable extends Component {
     constructor(props) {
         super(props);
 
+        const { productData } = props;
+        const sales = _.map(productData, 'sales');
+
+        const weekAscSales = _.sortByOrder(_.flatten(sales), 'weekEnding', 'asc');
+        const weekDescSales = _.sortByOrder(_.flatten(sales), 'weekEnding', 'desc');
+
+        const retailSalesAsc = _.sortByOrder(_.flatten(sales), 'retailSales', 'asc');
+        const retailSalesDesc = _.sortByOrder(_.flatten(sales), 'retailSales', 'desc');
+
+        const wholesaleSalesAsc = _.sortByOrder(_.flatten(sales), 'wholesaleSales', 'asc');
+        const wholesaleSalesDesc = _.sortByOrder(_.flatten(sales), 'wholesaleSales', 'desc');
+
+        const unitsSoldAsc = _.sortByOrder(_.flatten(sales), 'unitsSold', 'asc');
+        const unitsSoldDesc = _.sortByOrder(_.flatten(sales), 'unitsSold', 'desc');
+
+        const retailerMarginAsc = _.sortByOrder(_.flatten(sales), 'retailerMargin', 'asc');
+        const retailerMarginDesc = _.sortByOrder(_.flatten(sales), 'retailerMargin', 'desc');
+
         this.state = {
-            weekAsc: true,
-            retailSalesAsc: false,
-            wholeSaleSalesAsc: false,
-            unitsSoldAsc: false,
-            retailerMarginAsc: false
+            sortedData: weekAscSales,// Chosen randomly
+
+            weekAscSales: weekAscSales,
+            weekDescSales: weekDescSales,
+
+            retailSalesAsc: retailSalesAsc,
+            retailSalesDesc: retailSalesDesc,
+
+            wholesaleSalesAsc: wholesaleSalesAsc,
+            wholesaleSalesDesc: wholesaleSalesDesc,
+
+            unitsSoldAsc: unitsSoldAsc,
+            unitsSoldDesc: unitsSoldDesc,
+
+            retailerMarginAsc: retailerMarginAsc,
+            retailerMarginDesc: retailerMarginDesc
+        };
+
+        this.renderTable = this.renderTable.bind(this);
+        this.sortAscending = this.sortAscending.bind(this);
+        this.sortDescending = this.sortDescending.bind(this);
+    }
+
+    sortAscending(e) {
+        const sortingOrder = e.target.id;
+
+        switch (sortingOrder) {
+            case 'weekAsc':
+                this.setState({ sortedData: this.state.weekAscSales });
+                break;
+            case 'retailSalesAsc':
+                this.setState({ sortedData: this.state.retailSalesAsc });
+                break;
+            case 'wholesaleSalesAsc':
+                this.setState({ sortedData: this.state.wholesaleSalesAsc });
+                break;
+            case 'unitsSoldAsc':
+                this.setState({ sortedData: this.state.unitsSoldAsc });
+                break;
+            case 'retailerMarginAsc':
+                this.setState({ sortedData: this.state.retailerMarginAsc });
+                break;
         }
     }
     
-    // ToDo : Finish -- Use lodash to sort and then call renderTable()
-    sortAscending(e) {
-        console.log('sort ascending', e.target.id);
-    }
-
-    // ToDo : Finish -- Use lodash to sort and then call renderTable()
     sortDescending(e) {
-        console.log('sort descending', e.target.id);
+        const sortingOrder = e.target.id;
+
+        switch (sortingOrder) {
+            case 'weekDesc':
+                this.setState({ sortedData: this.state.weekDescSales });
+                break;
+            case 'retailSalesDesc':
+                this.setState({ sortedData: this.state.retailSalesDesc });
+                break;
+            case 'wholesaleSalesDesc':
+                this.setState({ sortedData: this.state.wholesaleSalesDesc });
+                break;
+            case 'unitsSoldDesc':
+                this.setState({ sortedData: this.state.unitsSoldDesc });
+                break;
+            case 'retailerMarginDesc':
+                this.setState({ sortedData: this.state.retailerMarginDesc });
+                break;
+        }
     }
 
-    renderTable() {
-        const { productData } = this.props;
-        const sales = _.map(productData, 'sales');
-
-        return _.map(_.flatten(sales), sale => {
+    renderTable(sales) {
+        return _.map(sales, sale => {
             return (
                 <tr>
                     <td>{sale.weekEnding}</td>
@@ -56,7 +120,7 @@ class SalesTable extends Component {
                     <tr>
                         <th scope="col">{WEEK_ENDING}
                             <a onClick={this.sortAscending} id="weekAsc" className="glyphicon glyphicon-triangle-top"></a>
-                            <a onClick={this.sortDescending} id="weekDesc" id="week" className="glyphicon glyphicon-triangle-bottom"></a>
+                            <a onClick={this.sortDescending} id="weekDesc" id="weekDesc" className="glyphicon glyphicon-triangle-bottom"></a>
                         </th>
                         <th scope="col">{RETAIL_SALES}
                             <a onClick={this.sortAscending} id="retailSalesAsc" className="glyphicon glyphicon-triangle-top"></a>
@@ -71,12 +135,12 @@ class SalesTable extends Component {
                             <a onClick={this.sortDescending} id="unitsSoldDesc" className="glyphicon glyphicon-triangle-bottom"></a>
                         </th>
                         <th scope="col">{RETAILER_MARGIN}
-                            <a onClick={this.sortAscending} className="glyphicon glyphicon-triangle-top"></a>
-                            <a onClick={this.sortDescending} className="glyphicon glyphicon-triangle-bottom"></a>
+                            <a onClick={this.sortAscending} id="retailerMarginAsc" className="glyphicon glyphicon-triangle-top"></a>
+                            <a onClick={this.sortDescending} id="retailerMarginDesc" className="glyphicon glyphicon-triangle-bottom"></a>
                         </th>
                     </tr>
                     </thead>
-                    <tbody>{this.renderTable()}</tbody>
+                    <tbody>{this.renderTable(this.state.sortedData)}</tbody>
                 </table>
             </div>
         )
