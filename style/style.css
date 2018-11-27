@@ -1,0 +1,26 @@
+html, body {
+    height: 100%
+}
+
+.container {
+    min-height: 100%;
+    overflow: hidden;
+}
+
+#navbar, #sales_chart, #sales_table {
+    margin-bottom: -9999px;
+    padding-bottom: 9999px;
+}
+
+#navbar {
+    background-color: lightgray;
+    height: 100%;
+}
+
+#sales_chart {
+    background-color: whitesmoke;
+}
+
+#sales_table {
+    background-color: lightgray;
+}
