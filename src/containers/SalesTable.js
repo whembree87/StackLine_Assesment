@@ -11,12 +11,12 @@ const RETAILER_MARGIN = 'RETAILER MARGIN';
 class SalesTable extends Component {
     // ToDo : Finish -- Use lodash to sort and then call renderTable()
     sortAscending(e) {
-        console.log('sort ascending', e.target);
+        console.log('sort ascending', e.target.id);
     }
 
     // ToDo : Finish -- Use lodash to sort and then call renderTable()
     sortDescending(e) {
-        console.log('sort descending', e.target);
+        console.log('sort descending', e.target.id);
     }
 
     renderTable() {
