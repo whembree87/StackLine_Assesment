@@ -9,6 +9,18 @@ const UNITS_SOLD = 'UNITS SOLD';
 const RETAILER_MARGIN = 'RETAILER MARGIN';
 
 class SalesTable extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            weekAsc: true,
+            retailSalesAsc: false,
+            wholeSaleSalesAsc: false,
+            unitsSoldAsc: false,
+            retailerMarginAsc: false
+        }
+    }
+    
     // ToDo : Finish -- Use lodash to sort and then call renderTable()
     sortAscending(e) {
         console.log('sort ascending', e.target.id);
@@ -39,7 +51,7 @@ class SalesTable extends Component {
     render() {
         return (
             <div className="col-md-9" id="sales_table">
-                <table className="table">
+                <table className="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th scope="col">{WEEK_ENDING}

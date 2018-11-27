@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 import NavBar from './containers/NavBar';
 import RetailSales from './components/RetailSales';
+import Overview from './components/Overview';
 import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware()(createStore);
@@ -17,6 +18,7 @@ ReactDOM.render(
               <div className="row">
                   <NavBar />
                   <Switch>
+                      <Route path="/overview" component={Overview} />
                       <Route path="/" component={RetailSales} />
                   </Switch>
               </div>

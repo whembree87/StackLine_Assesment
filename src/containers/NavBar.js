@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from "lodash";
+import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
     renderTags(tags) {
@@ -28,14 +29,14 @@ class NavBar extends Component {
                 <hr></hr>
                 {this.renderTags({ tags })}
                 <hr></hr>
-                <button type="button" className="btn btn-primary btn-lg btn-block">
+                <a className="btn btn-primary btn-lg btn-block"  href="/overview">
                     <span className="glyphicon glyphicon-home" />
                     Overview
-                </button>
-                <button type="button" className="btn btn-primary btn-lg btn-block">
+                </a>
+                <a className="btn btn-primary btn-lg btn-block" href="/">
                     <span className="glyphicon glyphicon-equalizer" />
                     Sales
-                </button>
+                </a>
             </div>
         )
     }
